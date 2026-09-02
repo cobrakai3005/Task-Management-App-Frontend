@@ -90,7 +90,7 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
       {/* Row Header */}
       <div 
         className="flex items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-        style={{ paddingLeft: `${level * 24 + 12}px` }}
+        style={{ paddingLeft: `calc(${level} * clamp(12px, 3vw, 24px) + 12px)` }}
       >
         <button 
           onClick={() => setExpanded(!expanded)} 
@@ -106,7 +106,12 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
         
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-semibold text-gray-800 dark:text-gray-200 truncate pr-4">{task.title}</span>
+            <div className="flex items-center truncate pr-4">
+              <span className="font-semibold text-gray-800 dark:text-gray-100 mr-2">{task.title}</span>
+              <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-md">
+                By {users.find(u => u.id === task.createdBy)?.name || 'Unknown'}
+              </span>
+            </div>
             <div className="flex items-center space-x-4 shrink-0">
               <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
@@ -131,6 +136,7 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
                      assignee={a} 
                      user={u} 
                      isMe={currentUser.id === a.userId} 
+                     canEdit={currentUser.id === a.userId || currentUser.id === task.createdBy}
                      onStatusChange={(status) => handleStatusChange(a.userId, status)} 
                      onRemove={() => removeUser(task.id, a.userId, currentUser.id)} 
                    />

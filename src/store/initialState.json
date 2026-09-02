@@ -44,13 +44,18 @@
       "dueDate": "2026-09-09T05:18:47.481Z",
       "startDate": "2026-09-02T05:18:56.409Z",
       "assignees": [
-        { "userId": "u2", "status": "DONE", "completedAt": "2026-09-02T05:37:41.209Z" },
-        { "userId": "u1", "status": "BLOCKED", "delayCategory": "Waiting for Approval", "delayNote": "A" }
+        { "userId": "u2", "status": "DONE", "completedAt": "2026-09-02T06:28:56.926Z" },
+        { "userId": "u1", "status": "DONE", "delayCategory": "Waiting for Approval", "delayNote": "A", "completedAt": "2026-09-02T06:05:30.431Z" }
       ],
       "createdBy": "u1",
       "id": "774f81da-4aec-4ef7-a663-35f4bb3c76ee",
       "createdAt": "2026-09-02T05:18:56.409Z",
       "history": [
+        { "id": "bb33fcae-a6fa-4ea6-a665-83bc9133f8e3", "action": "Updated status to DONE for user u2", "timestamp": "2026-09-02T06:28:56.926Z", "userId": "u1" },
+        { "id": "8c3ad6e3-14f2-42be-b65f-ff837055dbc6", "action": "Updated status to IN_PROGRESS for user u2", "timestamp": "2026-09-02T06:28:54.757Z", "userId": "u1" },
+        { "id": "83fa4d5d-b818-4c8b-a071-c87ab1d81578", "action": "Updated status to DONE for user u2", "timestamp": "2026-09-02T06:28:30.917Z", "userId": "u1" },
+        { "id": "0f3a77c2-c99d-4c39-82e9-2788ed3854a5", "action": "Updated status to PENDING for user u2", "timestamp": "2026-09-02T06:28:18.926Z", "userId": "u1" },
+        { "id": "30f8ba15-c5a6-477c-b517-b5b3d61d439a", "action": "Updated status to DONE for user u1", "timestamp": "2026-09-02T06:05:30.431Z", "userId": "u2" },
         { "id": "3666337b", "action": "Updated status to BLOCKED for user u1", "timestamp": "2026-09-02T05:39:40.881Z", "userId": "u2" }
       ]
     },
@@ -68,6 +73,27 @@
       "id": "chef-term-123",
       "createdAt": "2026-09-02T05:21:12.682Z",
       "history": []
+    },
+    {
+      "title": "Waiter Terminal",
+      "description": "",
+      "projectId": "p1",
+      "parentId": "8f059367-bab3-4e5a-af5b-7bc06604c600",
+      "dueDate": "2026-09-09T05:18:47.481Z",
+      "startDate": "2026-09-02T06:02:01.679Z",
+      "assignees": [
+        { "userId": "u4", "status": "DONE", "completedAt": "2026-09-02T06:30:52.229Z" },
+        { "userId": "u5", "status": "BLOCKED", "delayCategory": "Personal Emergency", "delayNote": "Personal Emergency" }
+      ],
+      "createdBy": "u2",
+      "id": "ce6d3e7f-2c7c-46d7-a729-b06f7e140984",
+      "createdAt": "2026-09-02T06:02:01.679Z",
+      "history": [
+        { "id": "18b16447-29f6-4cba-9db5-977b5ea8087e", "action": "Updated status to DONE for user u4", "timestamp": "2026-09-02T06:30:52.229Z", "userId": "u2" },
+        { "id": "0e0f642d-84a7-4ba8-8baf-7ec66b2f773d", "action": "Updated status to IN_PROGRESS for user u4", "timestamp": "2026-09-02T06:30:48.469Z", "userId": "u2" },
+        { "id": "1ac3976d-257a-42cf-aca1-1a42e8ba3ed6", "action": "Updated status to BLOCKED for user u5", "timestamp": "2026-09-02T06:04:25.991Z", "userId": "u2" },
+        { "id": "4ec6198d-9209-4658-9fb8-c77b5e7e4943", "action": "Updated status to DONE for user u4", "timestamp": "2026-09-02T06:00:00.000Z", "userId": "u2" }
+      ]
     }
   ]
 }

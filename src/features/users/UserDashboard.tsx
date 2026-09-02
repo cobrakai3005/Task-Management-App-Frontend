@@ -31,12 +31,12 @@ const UserDashboard: React.FC = () => {
 
       {/* Metrics Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-        <MetricCard label="Total Assigned" count={total} color="bg-gray-100" />
-        <MetricCard label="Completed" count={completed} color="bg-green-100 text-green-800" />
-        <MetricCard label="In Progress" count={inProgress} color="bg-blue-100 text-blue-800" />
-        <MetricCard label="Pending" count={pending} color="bg-gray-100 text-gray-800 dark:text-gray-200" />
-        <MetricCard label="Blocked" count={blocked} color="bg-red-100 text-red-800" />
-        <MetricCard label="Overdue" count={overdue} color="bg-orange-100 text-orange-800" />
+        <MetricCard label="Total Assigned" count={total} color="bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400" />
+        <MetricCard label="Completed" count={completed} color="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" />
+        <MetricCard label="In Progress" count={inProgress} color="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" />
+        <MetricCard label="Pending" count={pending} color="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300" />
+        <MetricCard label="Blocked" count={blocked} color="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" />
+        <MetricCard label="Overdue" count={overdue} color="bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400" />
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">

@@ -7,6 +7,7 @@ interface AssigneeChipProps {
   assignee: AssigneeProgress;
   user?: User;
   isMe: boolean;
+  canEdit: boolean;
   onStatusChange: (status: Status) => void;
   onRemove: () => void;
 }
@@ -19,7 +20,7 @@ const statusConfig: Record<Status, { bg: string; text: string; border: string; d
   OVERDUE: { bg: 'bg-orange-50', text: 'text-orange-800', border: 'border-orange-200', dot: 'bg-orange-500', label: 'Overdue' },
 };
 
-const AssigneeChip: React.FC<AssigneeChipProps> = ({ assignee, user, isMe, onStatusChange, onRemove }) => {
+const AssigneeChip: React.FC<AssigneeChipProps> = ({ assignee, user, isMe, canEdit, onStatusChange, onRemove }) => {
   const [isOpen, setIsOpen] = useState(false);
   const config = statusConfig[assignee.status];
 
@@ -67,38 +68,42 @@ const AssigneeChip: React.FC<AssigneeChipProps> = ({ assignee, user, isMe, onSta
               )}
             </div>
 
-            <div className="p-2 space-y-1">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-2 py-1">Set Status</p>
-              {(['PENDING', 'IN_PROGRESS', 'BLOCKED', 'DONE'] as Status[]).map((status) => (
-                <button
-                  key={status}
-                  onClick={() => {
-                    onStatusChange(status);
-                    if (status !== 'BLOCKED') setIsOpen(false); // keep open for block to allow modal to handle, though modal is app-level
-                  }}
-                  className={clsx(
-                    "w-full text-left px-3 py-1.5 text-sm rounded-md flex items-center justify-between transition-colors",
-                    assignee.status === status ? "bg-gray-100 font-medium text-gray-900 dark:text-gray-100" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
-                  )}
-                >
-                  {statusConfig[status].label}
-                  {assignee.status === status && <div className={clsx("w-1.5 h-1.5 rounded-full", statusConfig[status].dot)} />}
-                </button>
-              ))}
-            </div>
-            
-            <div className="p-2 border-t border-gray-50">
-              <button
-                onClick={() => {
-                  onRemove();
-                  setIsOpen(false);
-                }}
-                className="w-full text-left px-3 py-1.5 text-sm rounded-md text-red-600 hover:bg-red-50 flex items-center transition-colors font-medium"
-              >
-                <X className="w-4 h-4 mr-2" />
-                Remove from task
-              </button>
-            </div>
+            {canEdit && (
+              <>
+                <div className="p-2 space-y-1">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-2 py-1">Set Status</p>
+                  {(['PENDING', 'IN_PROGRESS', 'BLOCKED', 'DONE'] as Status[]).map((status) => (
+                    <button
+                      key={status}
+                      onClick={() => {
+                        onStatusChange(status);
+                        if (status !== 'BLOCKED') setIsOpen(false);
+                      }}
+                      className={clsx(
+                        "w-full text-left px-3 py-1.5 text-sm rounded-md flex items-center justify-between transition-colors",
+                        assignee.status === status ? "bg-gray-100 font-medium text-gray-900 dark:text-gray-100" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      )}
+                    >
+                      {statusConfig[status].label}
+                      {assignee.status === status && <div className={clsx("w-1.5 h-1.5 rounded-full", statusConfig[status].dot)} />}
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="p-2 border-t border-gray-50 dark:border-gray-800">
+                  <button
+                    onClick={() => {
+                      onRemove();
+                      setIsOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-1.5 text-sm rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center transition-colors font-medium"
+                  >
+                    <X className="w-4 h-4 mr-2" />
+                    Remove from task
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </>
       )}
