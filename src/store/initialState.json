@@ -1,0 +1,73 @@
+{
+  "projects": [
+    {
+      "id": "p1",
+      "name": "Restaurant POS",
+      "workspaceId": "w1"
+    },
+    {
+      "id": "7ce27311-b053-41d7-b96f-ba107d14972a",
+      "name": "Task Manage ment App",
+      "workspaceId": "w1"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Employee Terminal",
+      "description": "",
+      "projectId": "p1",
+      "parentId": null,
+      "dueDate": "2026-09-09T05:18:47.481Z",
+      "startDate": "2026-09-02T05:18:47.481Z",
+      "assignees": [
+        { "userId": "u1", "status": "IN_PROGRESS", "completedAt": "2026-09-02T05:42:08.208Z" },
+        { "userId": "u2", "status": "DONE", "completedAt": "2026-09-02T05:42:10.576Z" },
+        { "userId": "u3", "status": "DONE", "completedAt": "2026-09-02T05:42:21.489Z" },
+        { "userId": "u4", "status": "DONE", "completedAt": "2026-09-02T05:42:23.161Z" },
+        { "userId": "u5", "status": "DONE", "completedAt": "2026-09-02T05:42:24.737Z" }
+      ],
+      "createdBy": "u1",
+      "id": "8f059367-bab3-4e5a-af5b-7bc06604c600",
+      "createdAt": "2026-09-02T05:18:47.481Z",
+      "history": [
+        { "id": "545be77b", "action": "Updated status to DONE for user u5", "timestamp": "2026-09-02T05:42:24.737Z", "userId": "u2" },
+        { "id": "88faa6e4", "action": "Updated status to DONE for user u4", "timestamp": "2026-09-02T05:42:23.161Z", "userId": "u2" },
+        { "id": "9657b8ac", "action": "Updated status to DONE for user u3", "timestamp": "2026-09-02T05:42:21.489Z", "userId": "u2" },
+        { "id": "ec4bfddd", "action": "Updated status to IN_PROGRESS for user u1", "timestamp": "2026-09-02T05:42:18.873Z", "userId": "u2" }
+      ]
+    },
+    {
+      "title": "Cashier Terminal",
+      "description": "",
+      "projectId": "p1",
+      "parentId": "8f059367-bab3-4e5a-af5b-7bc06604c600",
+      "dueDate": "2026-09-09T05:18:47.481Z",
+      "startDate": "2026-09-02T05:18:56.409Z",
+      "assignees": [
+        { "userId": "u2", "status": "DONE", "completedAt": "2026-09-02T05:37:41.209Z" },
+        { "userId": "u1", "status": "BLOCKED", "delayCategory": "Waiting for Approval", "delayNote": "A" }
+      ],
+      "createdBy": "u1",
+      "id": "774f81da-4aec-4ef7-a663-35f4bb3c76ee",
+      "createdAt": "2026-09-02T05:18:56.409Z",
+      "history": [
+        { "id": "3666337b", "action": "Updated status to BLOCKED for user u1", "timestamp": "2026-09-02T05:39:40.881Z", "userId": "u2" }
+      ]
+    },
+    {
+      "title": "Chef Terminal",
+      "description": "",
+      "projectId": "p1",
+      "parentId": "8f059367-bab3-4e5a-af5b-7bc06604c600",
+      "dueDate": "2026-09-09T05:18:47.481Z",
+      "startDate": "2026-09-02T05:21:12.682Z",
+      "assignees": [
+        { "userId": "u3", "status": "DONE", "completedAt": "2026-09-02T05:30:12.682Z" }
+      ],
+      "createdBy": "u1",
+      "id": "chef-term-123",
+      "createdAt": "2026-09-02T05:21:12.682Z",
+      "history": []
+    }
+  ]
+}
