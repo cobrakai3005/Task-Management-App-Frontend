@@ -54,6 +54,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 Person View
               </NavLink>
             </li>
+            <li>
+              <NavLink 
+                to="/team" 
+                className={({ isActive }) => clsx(
+                  "flex items-center px-6 py-3 text-sm font-medium",
+                  isActive ? "text-primary bg-blue-50 dark:bg-blue-900/30 border-r-4 border-primary" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                )}
+              >
+                <Users className="w-5 h-5 mr-3" />
+                Team
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -118,6 +130,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         >
           <Users className="w-6 h-6 mb-1" />
           <span className="text-[10px] font-medium">My Tasks</span>
+        </NavLink>
+        <NavLink 
+          to="/team" 
+          className={({ isActive }) => clsx(
+            "flex flex-col items-center justify-center w-full h-full",
+            isActive ? "text-primary" : "text-gray-500 dark:text-gray-400"
+          )}
+        >
+          <Users className="w-6 h-6 mb-1" />
+          <span className="text-[10px] font-medium">Team</span>
         </NavLink>
       </div>
     </div>

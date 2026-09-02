@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Layout from './components/Layout';
 import ProjectDashboard from './features/projects/ProjectDashboard';
 import UserDashboard from './features/users/UserDashboard';
+import TeamDirectory from './features/users/TeamDirectory';
 import { useEffect } from 'react';
 import { useTaskStore } from './store/useTaskStore';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/projects" element={<ProjectDashboard />} />
           <Route path="/projects/:projectId" element={<ProjectDashboard />} />
           <Route path="/my-tasks" element={<UserDashboard />} />
+          <Route path="/team" element={<TeamDirectory />} />
         </Routes>
       </Layout>
     </Router>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import type { TaskNode } from '../../utils/taskUtils';
 import { calculateProgress, getOverallStatus } from '../../utils/taskUtils';
-import { ChevronRight, ChevronDown, Plus, Clock, Trash2 } from 'lucide-react';
+import { isTaskStale, getDeadlineRisk } from '../../utils/healthUtils';
+import { ChevronRight, ChevronDown, Plus, Clock, Trash2, AlertTriangle } from 'lucide-react';
 import ProgressBar from '../../components/ProgressBar';
 import StatusBadge from '../../components/StatusBadge';
 import { useTaskStore } from '../../store/useTaskStore';
@@ -37,6 +38,8 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
   
   const progress = calculateProgress(task.assignees);
   const overallStatus = getOverallStatus(task.assignees);
+  const isStale = isTaskStale(task);
+  const risk = getDeadlineRisk(task);
 
   const handleStatusChange = (userId: string, newStatus: Status) => {
     if (newStatus === 'BLOCKED' || newStatus === 'OVERDUE') {
@@ -111,6 +114,11 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
               <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-md">
                 By {users.find(u => u.id === task.createdBy)?.name || 'Unknown'}
               </span>
+              {isStale && (
+                <span className="ml-2 text-[10px] text-yellow-700 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400 font-bold px-2 py-0.5 rounded-md flex items-center shrink-0">
+                   <AlertTriangle className="w-3 h-3 mr-1" /> Stale
+                </span>
+              )}
             </div>
             <div className="flex items-center space-x-4 shrink-0">
               <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
@@ -182,6 +190,14 @@ const TaskRow: React.FC<{ task: TaskNode; level: number }> = ({ task, level }) =
                </button>
              </div>
           </div>
+          
+          {/* Smart Deadline Risk Warning */}
+          {risk.isAtRisk && (
+            <div className="mt-3 mb-1 px-3 py-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg flex items-start text-xs text-orange-800 dark:text-orange-300">
+              <AlertTriangle className="w-4 h-4 mr-2 shrink-0 mt-0.5" />
+              <p><strong>Predictive Insight:</strong> {risk.message}</p>
+            </div>
+          )}
         </div>
       </div>
 

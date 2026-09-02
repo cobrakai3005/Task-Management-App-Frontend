@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useTaskStore } from '../../store/useTaskStore';
 import { useUserStore } from '../../store/useUserStore';
 import { buildTaskTree } from '../../utils/taskUtils';
+import { getProjectHealth, getTaskHealth } from '../../utils/healthUtils';
 import TaskTree from '../tasks/TaskTree';
 import MobileTaskDrillDown from '../tasks/MobileTaskDrillDown';
-import { Plus } from 'lucide-react';
+import { Plus, Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 const ProjectDashboard: React.FC = () => {
   const { projects, tasks, addTask } = useTaskStore();
@@ -13,6 +14,9 @@ const ProjectDashboard: React.FC = () => {
 
   const projectTasks = tasks.filter(t => t.projectId === activeProjectId);
   const taskTree = buildTaskTree(projectTasks, activeProjectId);
+  
+  const projectHealth = getProjectHealth(projectTasks);
+  const staleCount = projectTasks.filter(t => getTaskHealth(t) === 'AT_RISK' || getTaskHealth(t) === 'CRITICAL').length;
 
   const handleCreateRootTask = () => {
     const title = prompt("Enter new main task title:");
@@ -63,7 +67,7 @@ const ProjectDashboard: React.FC = () => {
                 if(p) setActiveProjectId(p.id);
               }
             }}
-            className="flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm font-medium text-sm"
+            className="flex items-center justify-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm font-medium text-sm"
           >
             <Plus className="w-4 h-4 mr-2" />
             New Project
@@ -71,11 +75,56 @@ const ProjectDashboard: React.FC = () => {
           
           <button 
             onClick={handleCreateRootTask}
-            className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition shadow-sm font-medium text-sm"
+            className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition shadow-sm font-medium text-sm"
           >
             <Plus className="w-4 h-4 mr-2" />
             New Main Task
           </button>
+        </div>
+      </div>
+
+      {/* Project Health Dashboard Component */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Health Score</p>
+            <div className="flex items-center">
+              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">{projectHealth.score}/100</span>
+            </div>
+          </div>
+          <div className={`p-3 rounded-full ${
+            projectHealth.status === 'HEALTHY' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' :
+            projectHealth.status === 'AT_RISK' ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400' :
+            'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+          }`}>
+            <Activity className="w-6 h-6" />
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Project Status</p>
+            <span className={`text-lg font-bold ${
+              projectHealth.status === 'HEALTHY' ? 'text-green-600 dark:text-green-400' :
+              projectHealth.status === 'AT_RISK' ? 'text-yellow-600 dark:text-yellow-400' :
+              'text-red-600 dark:text-red-400'
+            }`}>
+              {projectHealth.status === 'HEALTHY' ? 'Healthy' : projectHealth.status === 'AT_RISK' ? 'At Risk' : 'Critical'}
+            </span>
+          </div>
+          <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+            {projectHealth.status === 'HEALTHY' ? <ShieldCheck className="w-6 h-6" /> : <AlertTriangle className="w-6 h-6" />}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Problem Tasks</p>
+            <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">{staleCount}</span>
+          </div>
+          <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+            <AlertTriangle className="w-6 h-6" />
+          </div>
         </div>
       </div>
 

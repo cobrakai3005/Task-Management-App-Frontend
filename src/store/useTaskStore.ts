@@ -127,12 +127,16 @@ export const useTaskStore = create<TaskState>()(
 
               const updatedAssignees = t.assignees.map(a => {
                 if (a.userId === userId) {
+                  // If moving to a healthy status, clear the delay reasons.
+                  // Otherwise, update them if new ones are provided, or keep the old ones.
+                  const isHealthyStatus = status === 'DONE' || status === 'PENDING' || status === 'IN_PROGRESS';
+                  
                   return {
                     ...a,
                     status,
                     completedAt: status === 'DONE' ? new Date().toISOString() : a.completedAt,
-                    delayCategory: delayCategory || a.delayCategory,
-                    delayNote: delayNote || a.delayNote
+                    delayCategory: isHealthyStatus ? undefined : (delayCategory || a.delayCategory),
+                    delayNote: isHealthyStatus ? undefined : (delayNote || a.delayNote)
                   };
                 }
                 return a;
